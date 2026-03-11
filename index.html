@@ -16,6 +16,23 @@
 
 <body>
 
+    <!-- ===== APP BANNER ===== -->
+    <div class="app-banner" id="appBanner">
+        <div class="container app-banner__inner">
+            <div class="app-banner__info">
+                <img src="assets/icons/logo.svg" alt="App Icon" class="app-banner__icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3133/3133887.png';">
+                <div class="app-banner__text">
+                    <p class="app-banner__title">Fugu Casino App</p>
+                    <p class="app-banner__desc">Скачайте для быстрой игры</p>
+                </div>
+            </div>
+            <div class="app-banner__actions">
+                <a href="#" class="btn btn--primary btn--sm app-banner__btn">Скачать</a>
+                <button class="app-banner__close" onclick="document.getElementById('appBanner').style.display='none'">✕</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== HEADER ===== -->
     <header class="header" id="header">
         <div class="container header__inner">
@@ -86,15 +103,15 @@
     <div class="nav-tabs-wrap">
         <div class="container">
             <div class="nav-tabs" id="navTabs">
-                <a href="#" class="nav-tabs__item nav-tabs__item--active">Лобби</a>
-                <a href="#" class="nav-tabs__item">Слоты</a>
-                <a href="#" class="nav-tabs__item">Instant Games</a>
-                <a href="#" class="nav-tabs__item">Для хайроллеров</a>
-                <a href="#" class="nav-tabs__item">Настольные</a>
-                <a href="#" class="nav-tabs__item">Multiplier</a>
-                <a href="#" class="nav-tabs__item">Megaways</a>
-                <a href="#" class="nav-tabs__item">Hold And Win</a>
-                <a href="#" class="nav-tabs__item">Только на FUGU</a>
+                <a href="#" class="nav-tabs__item nav-tabs__item--active" data-filter="all">Лобби</a>
+                <a href="#" class="nav-tabs__item" data-filter="slots">Слоты</a>
+                <a href="#" class="nav-tabs__item" data-filter="instant">Instant Games</a>
+                <a href="#" class="nav-tabs__item" data-filter="highroller">Для хайроллеров</a>
+                <a href="#" class="nav-tabs__item" data-filter="table">Настольные</a>
+                <a href="#" class="nav-tabs__item" data-filter="multiplier">Multiplier</a>
+                <a href="#" class="nav-tabs__item" data-filter="megaways">Megaways</a>
+                <a href="#" class="nav-tabs__item" data-filter="holdandwin">Hold And Win</a>
+                <a href="#" class="nav-tabs__item" data-filter="exclusive">Только на FUGU</a>
             </div>
         </div>
     </div>
@@ -104,8 +121,7 @@
         <div class="container">
             <div class="cat-banners__grid">
                 <!-- Колесо фортуны -->
-                <a href="#" class="cat-card cat-card--wheel"
-                    style="background-image:linear-gradient(90deg,rgba(255,91,21,0) 0%,rgba(255,91,21,.3) 50%,rgba(255,91,21,.62) 100%);">
+                <a href="#" class="cat-card cat-card--wheel">
                     <div class="cat-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/s3/banner/01k88g1hymsk1tsmrag4kjrhw4/image/l986c0d7olwookosc40o0s8wsg4coo8.webp"
                             alt="Колесо фортуны" class="cat-card__img">
@@ -113,8 +129,7 @@
                     <h3 class="cat-card__title">Колесо<br>фортуны</h3>
                 </a>
                 <!-- Бонусы -->
-                <a href="#" class="cat-card cat-card--bonuses"
-                    style="background-image:url(https://xn----btbm6aeire.xn--p1ai/assets/img/upload/s3/banner/01k88fy62edq56z5gypj08m4ff/image_bg/1ztc4boyj3dw48gs8wwckc88w4848ko.webp);">
+                <a href="#" class="cat-card cat-card--bonuses">
                     <div class="cat-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/s3/banner/01k88fy62edq56z5gypj08m4ff/image/456t3kahjn28s88w4gs888gco4ksk0c.webp"
                             alt="Бонусы" class="cat-card__img">
@@ -122,8 +137,7 @@
                     <h3 class="cat-card__title">Бонусы</h3>
                 </a>
                 <!-- VIP Club -->
-                <a href="#" class="cat-card cat-card--vip"
-                    style="background-image:url(https://xn----btbm6aeire.xn--p1ai/assets/img/upload/s3/banner/01k88g4m79qcjyx1w2mtd1ada2/image_bg/icn8tjtr7hw80co4cok4s04g0888coc.webp);">
+                <a href="#" class="cat-card cat-card--vip">
                     <div class="cat-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/s3/banner/01k88g4m79qcjyx1w2mtd1ada2/image/8r2eo3ityts800ooo0kgogoo840k8ok.webp"
                             alt="VIP Club" class="cat-card__img">
@@ -159,7 +173,7 @@
                 <h2 class="section-head__title">Только на FUGU</h2>
             </div>
             <div class="games-grid">
-                <div class="game-card">
+                <div class="game-card" data-category="exclusive slots new">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/hacksaw/lefugu.webp" alt="Le Fugu"
                             class="game-card__img">
@@ -173,7 +187,7 @@
                     </div>
                     <p class="game-card__name">Le Fugu</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="exclusive slots new">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/spnmnl/fugugodsv.webp"
                             alt="Fugu Gods V" class="game-card__img">
@@ -187,7 +201,7 @@
                     </div>
                     <p class="game-card__name">Fugu Gods V</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="exclusive instant">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/gamebeat/spin4deadfugu.webp"
                             alt="Spin 4 Dead Fugu" class="game-card__img">
@@ -200,7 +214,7 @@
                     </div>
                     <p class="game-card__name">Spin 4 Dead Fugu</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="exclusive slots highroller">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/hacksaw/spearofathena.webp"
                             alt="Spear of Athena" class="game-card__img">
@@ -213,7 +227,7 @@
                     </div>
                     <p class="game-card__name">Spear of Athena</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="slots megaways">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/nolimit/bruteforce.webp"
                             alt="Brute Force" class="game-card__img">
@@ -223,7 +237,7 @@
                     </div>
                     <p class="game-card__name">Brute Force</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="slots multiplier">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/hacksaw/ripcity.webp"
                             alt="Rip City" class="game-card__img">
@@ -233,7 +247,7 @@
                     </div>
                     <p class="game-card__name">Rip City</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="slots holdandwin">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/pgsoft/wildbountyshowdown.webp"
                             alt="Wild Bounty Showdown" class="game-card__img">
@@ -243,7 +257,7 @@
                     </div>
                     <p class="game-card__name">Wild Bounty Showdown</p>
                 </div>
-                <div class="game-card">
+                <div class="game-card" data-category="slots table">
                     <div class="game-card__img-wr">
                         <img src="https://xn----btbm6aeire.xn--p1ai/assets/img/upload/pgsoft/treasuresofaztec.webp"
                             alt="Treasures of Aztec" class="game-card__img">

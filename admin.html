@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель - Fugu Casino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body { padding: 40px; }
+        .admin-panel { max-width: 800px; margin: 0 auto; background: var(--bg-card); padding: 30px; border-radius: var(--radius-lg); }
+        .admin-header { margin-bottom: 24px; font-size: 24px; color: var(--accent-gold); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 14px; }
+        .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-header); color: #fff; font-family: inherit; }
+        .form-group input:focus { outline: none; border-color: var(--accent-amber); }
+        .save-btn { width: 100%; margin-top: 20px; }
+        .success-msg { display: none; margin-top: 15px; padding: 12px; background: rgba(0, 255, 0, 0.1); color: #4ade80; border-radius: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="admin-panel">
+        <h1 class="admin-header">⚙️ Админ-панель: Управление ссылками</h1>
+        <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 14px;">Здесь вы можете настроить ссылки для всех кнопок на сайте. (Данные сохраняются локально для теста).</p>
+        
+        <form id="adminForm">
+            <div class="form-group">
+                <label for="linkLogin">Ссылка на кнопку "Вход"</label>
+                <input type="text" id="linkLogin" placeholder="https://example.com/login">
+            </div>
+            <div class="form-group">
+                <label for="linkReg">Ссылка на кнопку "Регистрация"</label>
+                <input type="text" id="linkReg" placeholder="https://example.com/register">
+            </div>
+            <div class="form-group">
+                <label for="linkPlay">Общая ссылка на кнопки "Играть" (на карточках игр)</label>
+                <input type="text" id="linkPlay" placeholder="https://example.com/play">
+            </div>
+            <div class="form-group">
+                <label for="linkBonus">Ссылка на кнопку "Получить бонус"</label>
+                <input type="text" id="linkBonus" placeholder="https://example.com/bonus">
+            </div>
+            <div class="form-group">
+                <label for="linkAllGames">Ссылка "Все игры"</label>
+                <input type="text" id="linkAllGames" placeholder="https://example.com/games">
+            </div>
+            
+            <button type="submit" class="btn btn--primary btn--large save-btn">💾 Сохранить изменения</button>
+            <div class="success-msg" id="successMsg">✅ Ссылки успешно сохранены! Обновите главную страницу.</div>
+            <a href="index.html" class="btn btn--ghost" style="margin-top: 15px; width: 100%; justify-content: center;">Вернуться на сайт</a>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Загружаем сохраненные данные, если они есть
+            const savedLinks = JSON.parse(localStorage.getItem('fugu_links') || '{}');
+            
+            document.getElementById('linkLogin').value = savedLinks.login || '';
+            document.getElementById('linkReg').value = savedLinks.register || '';
+            document.getElementById('linkPlay').value = savedLinks.play || '';
+            document.getElementById('linkBonus').value = savedLinks.bonus || '';
+            document.getElementById('linkAllGames').value = savedLinks.allGames || '';
+
+            // Сохраняем данные
+            document.getElementById('adminForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const links = {
+                    login: document.getElementById('linkLogin').value,
+                    register: document.getElementById('linkReg').value,
+                    play: document.getElementById('linkPlay').value,
+                    bonus: document.getElementById('linkBonus').value,
+                    allGames: document.getElementById('linkAllGames').value
+                };
+
+                localStorage.setItem('fugu_links', JSON.stringify(links));
+                
+                const msg = document.getElementById('successMsg');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000);
+            });
+        });
+    </script>
+</body>
+</html>

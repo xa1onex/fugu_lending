@@ -5,19 +5,19 @@
 
 /* --- CSS Variables (оригинальные цвета) --- */
 :root {
-    --bg: #131418;
-    --bg-header: #1a1c22;
-    --bg-card: #20222a;
-    --bg-card-2: #2b2e3a;
-    --accent-gold: #ffd900;
-    --accent-amber: #ff9409;
+    --bg: #0F0920;
+    --bg-header: #1B1038;
+    --bg-card: #271752;
+    --bg-card-2: #341F6E;
+    --accent-gold: #FFC000;
+    --accent-amber: #FF3366;
     --text: #ffffff;
-    --text-muted: #8b8e99;
+    --text-muted: #AAB0E2;
     --border: rgba(255, 255, 255, 0.08);
-    --radius: 10px;
+    --radius: 12px;
     --radius-lg: 16px;
     --font: 'Inter', sans-serif;
-    --transition: 0.22s ease;
+    --transition: 0.25s ease;
     --max-width: 1200px;
 }
 
@@ -88,13 +88,14 @@ button {
 
 .btn--primary {
     background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold));
-    color: #111;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
 }
 
 .btn--primary:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.15);
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(255, 148, 9, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 51, 102, 0.6);
 }
 
 .btn--primary:active {
@@ -107,7 +108,7 @@ button {
 }
 
 .btn--ghost:hover {
-    background: #383b47;
+    background: #462A92;
 }
 
 .btn--large {
@@ -120,6 +121,62 @@ button {
     padding: 8px 16px;
     font-size: 13px;
     border-radius: 8px;
+}
+
+/* ==============================================
+   APP BANNER
+   ============================================== */
+.app-banner {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    position: relative;
+    z-index: 1000;
+}
+.app-banner__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.app-banner__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.app-banner__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg);
+    padding: 4px;
+    object-fit: contain;
+}
+.app-banner__text {
+    display: flex;
+    flex-direction: column;
+}
+.app-banner__title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+.app-banner__desc {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+.app-banner__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.app-banner__close {
+    color: var(--text-muted);
+    font-size: 18px;
+    padding: 4px;
+}
+.app-banner__close:hover {
+    color: var(--text);
 }
 
 /* ==============================================
@@ -168,7 +225,7 @@ button {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: #0f1015;
+    background: var(--bg);
 }
 
 .hero__bg {
@@ -185,9 +242,9 @@ button {
     position: absolute;
     inset: 0;
     background: linear-gradient(90deg,
-            rgba(19, 20, 24, 0.95) 0%,
-            rgba(19, 20, 24, 0.6) 50%,
-            rgba(19, 20, 24, 0.1) 100%);
+            rgba(15, 9, 32, 0.95) 0%,
+            rgba(15, 9, 32, 0.6) 50%,
+            rgba(15, 9, 32, 0.1) 100%);
 }
 
 .hero__character {
@@ -243,7 +300,7 @@ button {
     background-clip: text;
     display: block;
     position: relative;
-    filter: drop-shadow(0 4px 24px rgba(255, 180, 0, 0.25));
+    filter: drop-shadow(0 4px 24px rgba(255, 51, 102, 0.4));
 }
 
 .hero__cta {
@@ -496,23 +553,23 @@ button {
 }
 
 .cat-card--wheel {
-    background: linear-gradient(135deg, #1a0a00, #3b1a00);
+    background: linear-gradient(135deg, #FF6B00 0%, #FF2E00 100%);
 }
 
 .cat-card--bonuses {
-    background: #1a1030;
+    background: linear-gradient(135deg, #7C3AED 0%, #3B0764 100%);
 }
 
 .cat-card--vip {
-    background: #0d1528;
+    background: linear-gradient(135deg, #10B981 0%, #047857 100%);
 }
 
 .cat-card--live {
-    background: #0a1a12;
+    background: linear-gradient(135deg, #F43F5E 0%, #BE123C 100%);
 }
 
 .cat-card--sport {
-    background: #0d1020;
+    background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
 }
 
 /* Последние 2 карточки — занять по полколонны */
@@ -590,7 +647,7 @@ button {
 
 .badge--exclusive {
     background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold));
-    color: #111;
+    color: #fff;
 }
 
 .game-card__name {
@@ -612,7 +669,9 @@ button {
    JACKPOTS
    ============================================== */
 .jackpots {
-    background: linear-gradient(180deg, var(--bg) 0%, rgba(255, 180, 0, 0.04) 100%);
+    background: var(--bg-header);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .jackpots__cards {
@@ -867,7 +926,7 @@ button {
     }
 
     .hero {
-        min-height: 360px;
+        min-height: 340px;
     }
 
     .hero__offer-value {
@@ -876,6 +935,7 @@ button {
 
     .hero__character {
         opacity: 0.3;
+        max-width: 80%;
     }
 
     .cat-banners__grid {
@@ -888,6 +948,7 @@ button {
 
     .games-grid {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
     }
 
     .footer__top {
@@ -896,41 +957,83 @@ button {
     }
 
     .seo-text h1 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .advantages__title {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .jackpots__cards {
         grid-template-columns: 1fr;
     }
+    
+    .app-banner__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .app-banner__actions {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 @media (max-width: 480px) {
+    .header__inner {
+        height: 56px;
+    }
+    .header__logo img {
+        height: 28px;
+    }
+
+    .hero {
+        min-height: 280px;
+    }
+    .hero__content {
+        padding: 40px 0;
+    }
+
     .hero__offer-value {
-        font-size: 52px;
+        font-size: 48px;
     }
 
     .cat-banners__grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 
-    .cat-card--wheel {
-        grid-column: span 2;
+    .cat-card--wheel, 
+    .cat-card:nth-child(4), 
+    .cat-card:nth-child(5) {
+        grid-column: span 1;
     }
 
     .games-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* 2 columns strictly for portrait phones */
+        gap: 10px;
     }
 
     .providers__list {
         gap: 8px;
+        justify-content: center;
     }
 
     .provider-item {
-        padding: 10px 14px;
+        padding: 8px 12px;
         font-size: 12px;
+    }
+    
+    .section {
+        padding: 32px 0;
+    }
+
+    .app-banner {
+        padding: 8px 0;
+    }
+    .app-banner__title {
+        font-size: 13px;
+    }
+    .app-banner__desc {
+        font-size: 11px;
     }
 }
