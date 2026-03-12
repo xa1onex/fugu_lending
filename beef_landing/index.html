@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beef Casino (Биф Казино) — официальный сайт, играть на деньги</title>
+  <meta name="description" content="Beef Casino — официальный сайт казино Биф. Вход на платформу для игры в слоты, рулетку и живые игры. Получите щедрый бонус за регистрацию.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    :root {
+      --body-bg: #12161D;
+      --body-color: #fff;
+      --bg-color: #181E29;
+      --button-gradient: linear-gradient(180deg, #19ffa7 46%, #009141);
+      --button-hover-gradient: linear-gradient(63.43deg, #09c706 47.87%, #b0ffb0 85.58%, #f0fff0 103.32%);
+      --hover-bg: rgba(255,255,255,0.1);
+      --color-grey-light: rgba(35,46,63,.5);
+      --active-border-color: rgb(0, 255, 102);
+    }
+
+    @font-face {
+      font-family: 'Onest';
+      src: url('assets/fonts/Onest-Regular.ce624cc7.ttf') format('truetype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Onest';
+      src: url('assets/fonts/Onest-Medium.04995379.ttf') format('truetype');
+      font-weight: 500;
+    }
+    @font-face {
+      font-family: 'Onest';
+      src: url('assets/fonts/Onest-SemiBold.3b5e596f.ttf') format('truetype');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'Onest';
+      src: url('assets/fonts/Onest-Bold.8bd28390.ttf') format('truetype');
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: 'Onest';
+      src: url('assets/fonts/Onest-Black.495e5436.ttf') format('truetype');
+      font-weight: 900;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    img { max-width: 100%; vertical-align: top; height: auto; }
+
+    body {
+      font-family: 'Onest', sans-serif;
+      font-size: 16px;
+      line-height: 1.2;
+      color: #fff;
+      background-color: var(--body-bg);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      padding: 0 15px;
+      margin: 0 auto;
+    }
+
+    /* =================== HEADER =================== */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(18, 22, 29, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      height: 60px;
+    }
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header__burger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+    }
+    .header__burger img { width: 24px; height: 24px; filter: invert(1); }
+    .header__logo img { height: 36px; }
+    .header__menu {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header__menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .header__menu-link:hover { background: rgba(255,255,255,0.08); }
+    .header__menu-link .icon { width: 20px; height: 20px; object-fit: contain; }
+    .header__right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 25px;
+      background: #232e3f;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .button:hover { background: rgba(255,255,255,0.15); }
+    .button-one {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--button-gradient);
+      padding: 10px 24px;
+      border-radius: 12px;
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+    .button-one:hover { background: var(--button-hover-gradient); }
+
+    /* =================== SIDE MENU =================== */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+    .overlay.active { display: block; }
+    .side-menu {
+      position: fixed;
+      top: 0; left: -320px;
+      width: 300px;
+      height: 100vh;
+      background: #181E29;
+      z-index: 1001;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .side-menu.open { left: 0; }
+    .menu-burger__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .menu-burger__btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .menu-burger__btn img { width: 24px; filter: invert(1); }
+    .menu-burger__logo img { height: 32px; }
+    .menu-burger__wheel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 8px;
+    }
+    .menu-burger__wheel-img {
+      width: 80px;
+      height: 80px;
+      animation: spin 8s linear infinite;
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .menu-burger__wheel-label {
+      font-size: 13px;
+      color: #19ffa7;
+      font-weight: 600;
+    }
+    .menu__list { padding: 8px 0; }
+    .menu__link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: background 0.2s;
+    }
+    .menu__link:hover { background: rgba(255,255,255,0.06); }
+    .menu__icon img { width: 28px; height: 28px; object-fit: contain; }
+    .menu-social {
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: auto;
+    }
+    .social-links__link img { width: 32px; height: 32px; }
+    .footer-download-menu {
+      display: flex;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+    .download-one-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .download-one-menu:hover { background: rgba(255,255,255,0.12); }
+    .download-img { width: 24px; height: 24px; object-fit: contain; }
+    .download-text { font-size: 11px; color: #ccc; line-height: 1.3; }
+
+    /* =================== MAIN =================== */
+    .main { margin-top: 60px; }
+
+    /* =================== HERO BANNER =================== */
+    .banner__section {
+      background: linear-gradient(135deg, #0e1520 0%, #12161D 40%, #0a1a12 100%);
+      padding: 40px 0 0;
+      min-height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner__section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('assets/images/bg-2.webp') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .banner__container {
+      position: relative;
+      z-index: 1;
+    }
+    .main-banner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      min-height: 400px;
+    }
+    .main-banner__content {
+      display: flex;
+      flex: 1;
+      align-items: flex-start;
+      gap: 40px;
+    }
+    .main-banner__left {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 360px;
+    }
+    .main-banner__text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #19ffa7;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .main-banner__percent {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(180deg, #ffffff 0%, #aaffcc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+    }
+    .main-banner__bonus-offer-name {
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .main-banner__bonus-offer-name span {
+      color: #19ffa7;
+    }
+    .main-banner__btn-wrap {
+      margin-top: 8px;
+    }
+    .main-banner__btn-wrap .button-one {
+      font-size: 16px;
+      padding: 14px 36px;
+      border-radius: 14px;
+      margin: 0;
+    }
+    .banner-gifts {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: -20px;
+    }
+    .banner-gifts img {
+      height: 360px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(25,255,167,0.3));
+    }
+
+    /* Payment row */
+    .main-paymant {
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      z-index: 1;
+    }
+    .paymant-list {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .payment-list__img { 
+      height: 28px; 
+      object-fit: contain; 
+      opacity: 0.8; 
+      transition: opacity 0.2s; 
+    }
+    .payment-list__img:hover { opacity: 1; }
+
+    /* =================== GAMES SECTION =================== */
+    .games__section {
+      padding: 40px 0;
+    }
+    .games__tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .games__tabs::-webkit-scrollbar { display: none; }
+    .games__tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #aaa;
+      background: rgba(255,255,255,0.05);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .games__tab:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .games__tab.active {
+      background: rgba(25,255,167,0.1);
+      color: #19ffa7;
+      border-color: rgba(25,255,167,0.3);
+    }
+    .games__tab img { width: 20px; height: 20px; object-fit: contain; }
+
+    /* Games info (SEO text) */
+    .games__info {
+      margin-top: 40px;
+      background: #181E29;
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .games__info h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .games__info h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 24px 0 12px;
+      color: #fff;
+    }
+    .games__info h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+      color: #ccc;
+    }
+    .games__info p {
+      color: rgba(255,255,255,0.7) !important;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    /* =================== GAME GRID =================== */
+    .games__grid-section {
+      padding: 30px 0;
+    }
+    .games__grid-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .games__grid-title span { font-size: 14px; color: #19ffa7; font-weight: 600; }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .game-card {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: #1e2535;
+      transition: transform 0.2s, box-shadow 0.2s;
+      aspect-ratio: 4/3;
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    }
+    .game-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .game-card:hover img { transform: scale(1.05); }
+    .game-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+    }
+    .game-card:hover .game-card__overlay { opacity: 1; }
+    .game-card__play {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--button-gradient);
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px;
+      border-radius: 8px;
+      text-transform: uppercase;
+    }
+
+    /* =================== SUPPLIERS / JACKPOT =================== */
+    .suppliers__section {
+      padding: 40px 0;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .suppliers-slider {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(25,255,167,0.3) transparent;
+    }
+    .suppliers-slider::-webkit-scrollbar { height: 4px; }
+    .suppliers-slider::-webkit-scrollbar-track { background: transparent; }
+    .suppliers-slider::-webkit-scrollbar-thumb { background: rgba(25,255,167,0.3); border-radius: 2px; }
+    .suppliers__card {
+      flex: 0 0 220px;
+      background: #181E29;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 140px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .suppliers__card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      border-color: rgba(25,255,167,0.2);
+    }
+    .suppliers__card img { height: 60px; object-fit: contain; }
+    .play-supplier__jackpot {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .play-supplier__jackpot-sum {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: #19ffa7;
+    }
+    .play-supplier__jackpot-text {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .play-supplier__games {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    /* =================== FEATURED GAMES =================== */
+    .featured__section {
+      padding: 30px 0 40px;
+    }
+    .featured-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .featured-card {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: #1a1f2e;
+      transition: transform 0.2s;
+    }
+    .featured-card:hover { transform: translateY(-4px); }
+    .featured-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* =================== FOOTER =================== */
+    .footer {
+      background: #0d1018;
+      padding: 40px 0 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+    .footer__logo img { height: 36px; margin-bottom: 16px; }
+    .footer__desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social img { width: 28px; height: 28px; opacity: 0.7; transition: opacity 0.2s; }
+    .footer-social img:hover { opacity: 1; }
+    .footer__nav-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer__nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer__nav-link {
+      font-size: 14px;
+      color: #888;
+      transition: color 0.2s;
+    }
+    .footer__nav-link:hover { color: #19ffa7; }
+    .footer__payments {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer__payments-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer__payments-list {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer__payments-list img { height: 22px; opacity: 0.6; }
+    .footer__bottom {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__legal {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+    .footer__badges {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer__badges img { height: 36px; opacity: 0.6; }
+
+    /* =================== BOTTOM MOBILE MENU =================== */
+    .bottom-menu {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #181E29;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 20px;
+      z-index: 900;
+    }
+    .button-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--button-gradient);
+      border-radius: 12px;
+      padding: 14px;
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    /* =================== RESPONSIVE =================== */
+    @media (max-width: 1024px) {
+      .footer__inner { grid-template-columns: 1fr 1fr; }
+      .banner-gifts img { height: 280px; }
+      .main-banner__percent { font-size: 60px; }
+    }
+    
+    @media (max-width: 768px) {
+      .header__menu { display: none; }
+      .main-banner { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 20px;
+        min-height: auto;
+        padding-bottom: 240px; 
+      }
+      .main-banner__left {
+        max-width: 100%;
+        align-items: center;
+      }
+      .banner-gifts {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 0;
+      }
+      .banner-gifts img { height: 220px; }
+      .paymant-list { justify-content: center; }
+      .games-grid { grid-template-columns: repeat(3, 1fr); }
+      .games__info { padding: 24px; }
+      .games__info h1 { font-size: 22px; }
+      .games__info h2 { font-size: 18px; }
+      .suppliers__card { flex: 0 0 160px; min-height: 120px; padding: 12px; }
+      .suppliers__card img { height: 48px; }
+      .play-supplier__jackpot-sum { font-size: 16px; }
+      .button { padding: 8px 16px; font-size: 13px; }
+      .button-one { padding: 8px 20px; font-size: 13px; }
+      .footer__inner { gap: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .header__right .button { display: none; } /* Hide primary login btn on very small screens to save space */
+      .header { height: 56px; }
+      .main { margin-top: 56px; margin-bottom: 70px; }
+      .bottom-menu { display: block; }
+      .footer__inner { grid-template-columns: 1fr; }
+      .banner__section { padding-top: 24px; min-height: auto; }
+      .main-banner__percent { font-size: 48px; }
+      .main-banner__bonus-offer-name { font-size: 20px; }
+      .banner-gifts { gap: -30px; }
+      .banner-gifts img { height: 180px; }
+      .games-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .featured-row { grid-template-columns: repeat(3, 1fr); }
+      .games__info p { font-size: 14px; }
+      .footer-social { justify-content: flex-start; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer__badges { flex-wrap: wrap; }
+    }
+
+    @media (max-width: 400px) {
+      .main-banner__percent { font-size: 38px; }
+      .main-banner__bonus-offer-name { font-size: 18px; }
+      .banner-gifts img { height: 160px; }
+      .featured-row { grid-template-columns: repeat(2, 1fr); }
+      .header__logo img { height: 30px; }
+    }
+
+    /* =================== ANIMATIONS =================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .banner__section .main-banner__left { animation: fadeInUp 0.6s ease both; }
+    .banner__section .banner-gifts { animation: fadeInUp 0.8s 0.2s ease both; }
+
+    /* Glow pulse on buttons */
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(25,255,167,0.4); }
+      50% { box-shadow: 0 0 28px rgba(25,255,167,0.7); }
+    }
+    .button-one { animation: glowPulse 2.5s ease-in-out infinite; }
+    .button-one:hover { animation: none; }
+  </style>
+</head>
+<body>
+
+<!-- =================== HEADER =================== -->
+<header class="header">
+  <div class="header__inner">
+    <div class="header__left">
+      <button class="header__burger" id="burgerBtn">
+        <img src="assets/images/burgers.png" alt="Menu">
+      </button>
+      <a href="#" class="header__logo">
+        <img src="assets/images/logo.svg" alt="Beef Casino">
+      </a>
+    </div>
+    <nav class="header__menu">
+      <div class="header__menu-item">
+        <a href="#" class="header__menu-link">
+          <img class="icon" src="assets/images/cards.png" alt="Casino">
+          <span>Casino</span>
+        </a>
+      </div>
+      <div class="header__menu-item">
+        <a href="#" class="header__menu-link">
+          <img class="icon" src="assets/images/ball.png" alt="Sport">
+          <span>Sport</span>
+        </a>
+      </div>
+    </nav>
+    <div class="header__right">
+      <a href="#" class="button">Войти</a>
+      <a href="#" class="button-one"><span class="btn__inner">Регистрация</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- =================== SIDE MENU =================== -->
+<div class="overlay" id="overlay"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="menu-burger__header">
+    <button class="menu-burger__btn" id="closeMenu">
+      <img src="assets/images/close-svgrepo-com.svg" alt="Закрыть">
+    </button>
+    <div class="menu-burger__logo">
+      <img src="assets/images/logo.svg" alt="Beef Casino">
+    </div>
+  </div>
+
+  <div class="menu-burger__wheel">
+    <a href="#">
+      <img class="menu-burger__wheel-img" src="assets/images/wheel.webp" alt="Колесо Фортуны">
+    </a>
+    <div class="menu-burger__wheel-label">Колесо Фортуны</div>
+  </div>
+
+  <nav class="menu-burger-nav">
+    <ul class="menu__list">
+      <li class="menu__item">
+        <a href="#" class="menu__link">
+          <span class="menu__icon"><img src="assets/images/burger-promo.svg" alt="Промо"></span>
+          Промо
+        </a>
+      </li>
+      <li class="menu__item">
+        <a href="#" class="menu__link">
+          <span class="menu__icon"><img src="assets/images/burger-bonuses.svg" alt="Бонусы"></span>
+          Бонусы
+        </a>
+      </li>
+      <li class="menu__item">
+        <a href="#" class="menu__link">
+          <span class="menu__icon"><img src="assets/images/burger-store.svg" alt="Магазин"></span>
+          Магазин бонусов
+        </a>
+      </li>
+      <li class="menu__item">
+        <a href="#" class="menu__link">
+          <span class="menu__icon"><img src="assets/images/burger-vip.svg" alt="VIP"></span>
+          VIP клуб
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="menu-social">
+    <a href="#" class="social-links__link"><img src="assets/images/social-3.svg" alt="Telegram"></a>
+    <a href="#" class="social-links__link"><img src="assets/images/social-5.svg" alt="VK"></a>
+    <a href="#" class="social-links__link"><img src="assets/images/social-4.svg" alt="Twitter"></a>
+    <a href="#" class="social-links__link"><img src="assets/images/social-6.svg" alt="WhatsApp"></a>
+  </div>
+
+  <div class="footer-download-menu">
+    <div class="download-one-menu">
+      <img class="download-img" src="assets/images/ios_logo_app.webp" alt="iOS">
+      <p class="download-text">Скачать<br>в App Store</p>
+    </div>
+    <div class="download-one-menu">
+      <img class="download-img" src="assets/images/android_logo_app.webp" alt="Android">
+      <p class="download-text">Скачать<br>для Android</p>
+    </div>
+  </div>
+</div>
+
+<!-- =================== MAIN =================== -->
+<main class="main">
+
+  <!-- HERO BANNER -->
+  <section class="banner__section">
+    <div class="banner__container container">
+      <div class="main-banner">
+        <div class="main-banner__content">
+          <div class="main-banner__left">
+            <div class="main-banner__text">1-й депозит</div>
+            <div class="main-banner__percent">4 500 Р</div>
+            <div class="main-banner__bonus-offer-name">
+              БОНУС ОТ КАЗИНО<br>
+              <span>15 000 ₽</span> + 250 FS
+            </div>
+            <div class="main-banner__btn-wrap">
+              <a href="#" class="button-one">
+                <span class="btn__inner">Получить</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-gifts">
+          <img src="assets/images/lootbox-1.webp" alt="Lootbox">
+          <img src="assets/images/gift-girl.webp" alt="Gift">
+          <img src="assets/images/lootbox-2.webp" alt="Lootbox 2">
+        </div>
+      </div>
+
+      <!-- Payments -->
+      <div class="main-paymant">
+        <ul class="paymant-list">
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/blik.svg" alt="Blik"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/master.svg" alt="MasterCard"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/visa3.svg" alt="Visa"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/up4.svg" alt="UPay"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/appl5.svg" alt="Apple Pay"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/tr6.svg" alt="Tron"></li>
+          <li class="payment-list__item"><img class="payment-list__img" src="assets/images/mifinity7.svg" alt="MiFinity"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAMES SECTION -->
+  <section class="games__section">
+    <div class="container">
+
+      <!-- Tabs -->
+      <div class="games__tabs">
+        <div class="games__tab active">
+          <img src="assets/images/all.svg" alt="All">
+          Все
+        </div>
+        <div class="games__tab">Слоты</div>
+        <div class="games__tab">Лайв казино</div>
+        <div class="games__tab">Бонус Буй</div>
+        <div class="games__tab">Instant Games</div>
+        <div class="games__tab">Настольные</div>
+        <div class="games__tab">Эксклюзивные</div>
+        <div class="games__tab">Хай-роллер</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- JACKPOT SUPPLIERS -->
+  <section class="suppliers__section">
+    <div class="container">
+      <div class="section-title">Jackpot провайдеры</div>
+      <div class="suppliers-slider">
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/1.svg" alt="Jackpot 1">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+          <div class="play-supplier__games">202 игры</div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/2.svg" alt="Jackpot 2">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">282 215 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/3.svg" alt="Jackpot 3">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">768 244 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+          <div class="play-supplier__games">66 игр</div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/4.svg" alt="Jackpot 4">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">282 215 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/5.svg" alt="Jackpot 5">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">215 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/6.svg" alt="Jackpot 6">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">2 780 567 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+          <div class="play-supplier__games">365 игр</div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/7.svg" alt="Jackpot 7">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">1 450 000 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+        </a>
+        <a href="#" class="suppliers__card">
+          <img src="assets/images/8.svg" alt="Jackpot 8">
+          <div class="play-supplier__jackpot">
+            <span class="play-supplier__jackpot-sum">890 340 €</span>
+            <span class="play-supplier__jackpot-text">Jackpot</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR GAMES GRID -->
+  <section class="games__grid-section">
+    <div class="container">
+      <div class="games__grid-title">
+        Популярные игры <span>показать все →</span>
+      </div>
+      <div class="games-grid">
+        <div class="game-card">
+          <img src="assets/images/game--0.webp" alt="Game 1">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--1.webp" alt="Game 2">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--2.webp" alt="Game 3">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--3.webp" alt="Game 4">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--4.webp" alt="Game 5">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--5.webp" alt="Game 6">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--6.webp" alt="Game 7">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--7.webp" alt="Game 8">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--8.webp" alt="Game 9">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--9.webp" alt="Game 10">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--10.webp" alt="Game 11">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--11.webp" alt="Game 12">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--12.webp" alt="Game 13">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="assets/images/game--13.webp" alt="Game 14">
+          <div class="game-card__overlay">
+            <div class="game-card__play">Играть</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORE GAMES (uploaded jpgs) -->
+  <section class="featured__section">
+    <div class="container">
+      <div class="games__grid-title">Все слоты</div>
+      <div class="featured-row">
+        <div class="featured-card"><img src="assets/images/100cats.jpg" alt="100 Cats"></div>
+        <div class="featured-card"><img src="assets/images/100superhot.jpg" alt="100 Super Hot"></div>
+        <div class="featured-card"><img src="assets/images/20burninghot.jpg" alt="20 Burning Hot"></div>
+        <div class="featured-card"><img src="assets/images/20diamonds.jpg" alt="20 Diamonds"></div>
+        <div class="featured-card"><img src="assets/images/40superhot.jpg" alt="40 Super Hot"></div>
+        <div class="featured-card"><img src="assets/images/aloha_not_mobile_sw.jpg" alt="Aloha"></div>
+        <div class="featured-card"><img src="assets/images/bluebeard.jpg" alt="Bluebeard"></div>
+        <div class="featured-card"><img src="assets/images/bookofmagic.jpg" alt="Book of Magic"></div>
+        <div class="featured-card"><img src="assets/images/easterisland.jpg" alt="Easter Island"></div>
+        <div class="featured-card"><img src="assets/images/gemrocks.jpg" alt="Gem Rocks"></div>
+        <div class="featured-card"><img src="assets/images/goldenfishtank.jpg" alt="Golden Fish Tank"></div>
+        <div class="featured-card"><img src="assets/images/graceofcleopatra.jpg" alt="Grace of Cleopatra"></div>
+        <div class="featured-card"><img src="assets/images/mountainking.jpg" alt="Mountain King"></div>
+        <div class="featured-card"><img src="assets/images/ivanandtheimmortalking.jpg" alt="Ivan"></div>
+        <div class="featured-card"><img src="assets/images/primezone.jpg" alt="Prime Zone"></div>
+        <div class="featured-card"><img src="assets/images/royalsecrets.jpg" alt="Royal Secrets"></div>
+        <div class="featured-card"><img src="assets/images/sakurafortune.jpg" alt="Sakura Fortune"></div>
+        <div class="featured-card"><img src="assets/images/shiningcrown.jpg" alt="Shining Crown"></div>
+        <div class="featured-card"><img src="assets/images/greategypt.jpg" alt="Great Egypt"></div>
+        <div class="featured-card"><img src="assets/images/tripletigers.jpg" alt="Triple Tigers"></div>
+        <div class="featured-card"><img src="assets/images/vikingsgotohell.jpg" alt="Vikings Go to Hell"></div>
+        <div class="featured-card"><img src="assets/images/wonderheart.jpg" alt="Wonder Heart"></div>
+        <div class="featured-card"><img src="assets/images/woopwoop.png" alt="Woop Woop"></div>
+        <div class="featured-card"><img src="assets/images/wulong.png" alt="Wulong"></div>
+        <div class="featured-card"><img src="assets/images/mgs_wuxing.png" alt="Wuxing"></div>
+        <div class="featured-card"><img src="assets/images/yearofthemonkey.jpg" alt="Year of the Monkey"></div>
+        <div class="featured-card"><img src="assets/images/yetibattle_tk.jpg" alt="Yeti Battle"></div>
+        <div class="featured-card"><img src="assets/images/yutu.png" alt="Yutu"></div>
+        <div class="featured-card"><img src="assets/images/zhugeliang.jpg" alt="Zhuge Liang"></div>
+        <div class="featured-card"><img src="assets/images/zoom_tk.jpg" alt="Zoom"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO TEXT -->
+  <section class="games__section">
+    <div class="container">
+      <div class="games__info">
+        <h1>Биф Казино онлайн – играть на официальном сайте</h1>
+        <p><strong>Beef Casino</strong> позиционируется как современный клуб для взрослых, где расчеты ведутся в рублях и старт не перегружен лишними шагами. Здесь быстрое оформление, продуманная навигация и ясные пояснения к приветственным предложениям, поэтому первые минуты проходят спокойно. Игровое лобби открывает карточные форматы и слотовые разделы, а подсказки напоминают о лимитах и продолжительности сессий. Такой подход задает ровный ритм в Биф Казино, поддерживает ответственную привычку и помогает удерживать контроль бюджета.</p>
+
+        <h2>Слоты казино Beef: большой выбор автоматов</h2>
+        <p>Пользователи могут играть онлайн в Beef Casino от известных провайдеров — Pragmatic Play, Play'n GO, NetEnt, Evolution и многих других. В каталоге собраны тысячи слотов, настольные игры, лайв-казино с живыми дилерами и эксклюзивные игры.</p>
+
+        <h2>Бонусная система</h2>
+        <p>Приветственный пакет Beef Casino включает бонус на первый депозит <strong>15 000 ₽ + 250 фриспинов</strong>. Минимальный депозит для активации бонуса — 4 500 рублей. Помимо приветственного бонуса, казино регулярно радует игроков промоакциями, турнирами и кешбэком.</p>
+
+        <h2>Лицензия и безопасность</h2>
+        <p>Beef Casino работает по лицензии Кюрасао, что обеспечивает честность игр и безопасность финансовых операций. Все транзакции защищены SSL-шифрованием.</p>
+
+        <h2>Способы оплаты</h2>
+        <p>Казино поддерживает широкий спектр методов пополнения и вывода: банковские карты Visa и MasterCard, электронные кошельки, криптовалюты (USDT, TRX), Apple Pay, UPay и другие популярные платёжные системы.</p>
+
+        <h3>Мобильное приложение</h3>
+        <p>Доступны приложения для iOS и Android. Интерфейс полностью адаптирован для мобильных устройств и обеспечивает комфортную игру на смартфонах и планшетах.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOTTOM MOBILE MENU -->
+<div class="bottom-menu">
+  <a href="#" class="button-menu">
+    <span class="button-menu__inner">Регистрация</span>
+  </a>
+</div>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <div class="footer__logo">
+          <img src="assets/images/logo.svg" alt="Beef Casino">
+        </div>
+        <p class="footer__desc">Beef Casino — современная платформа для игры в онлайн-казино. 18+. Играйте ответственно.</p>
+        <div class="footer-social">
+          <a href="#"><img src="assets/images/social-3.svg" alt="Telegram"></a>
+          <a href="#"><img src="assets/images/social-5.svg" alt="VK"></a>
+          <a href="#"><img src="assets/images/social-4.svg" alt="Twitter"></a>
+          <a href="#"><img src="assets/images/social-6.svg" alt="WhatsApp"></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <div class="footer__nav-title">Казино</div>
+        <nav class="footer__nav-list">
+          <a href="#" class="footer__nav-link">Слоты</a>
+          <a href="#" class="footer__nav-link">Лайв казино</a>
+          <a href="#" class="footer__nav-link">Настольные игры</a>
+          <a href="#" class="footer__nav-link">Бонусы</a>
+          <a href="#" class="footer__nav-link">Промо</a>
+        </nav>
+      </div>
+      <div class="footer__col">
+        <div class="footer__nav-title">Информация</div>
+        <nav class="footer__nav-list">
+          <a href="#" class="footer__nav-link">О нас</a>
+          <a href="#" class="footer__nav-link">Условия и правила</a>
+          <a href="#" class="footer__nav-link">Политика конфиденциальности</a>
+          <a href="#" class="footer__nav-link">Ответственная игра</a>
+          <a href="#" class="footer__nav-link">Служба поддержки</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer__payments">
+      <div class="footer__payments-title">Способы оплаты</div>
+      <div class="footer__payments-list">
+        <img src="assets/images/blik.svg" alt="Blik">
+        <img src="assets/images/master.svg" alt="MasterCard">
+        <img src="assets/images/visa3.svg" alt="Visa">
+        <img src="assets/images/up4.svg" alt="UPay">
+        <img src="assets/images/appl5.svg" alt="Apple Pay">
+        <img src="assets/images/tr6.svg" alt="Tron">
+        <img src="assets/images/mifinity7.svg" alt="MiFinity">
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__legal">
+        © 2024 Beef Casino. Все права защищены. Казино работает на основании лицензии. Игра доступна только для лиц старше 18 лет. Азартные игры могут вызвать зависимость — играйте ответственно.
+      </p>
+      <div class="footer__badges">
+        <img src="assets/images/18.svg" alt="18+">
+        <img src="assets/images/GA.svg" alt="GA">
+        <img src="assets/images/GAM.svg" alt="Gambling">
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Burger menu
+  const burgerBtn = document.getElementById('burgerBtn');
+  const closeMenu = document.getElementById('closeMenu');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('overlay');
+
+  function openMenu() {
+    sideMenu.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenuFn() {
+    sideMenu.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  burgerBtn.addEventListener('click', openMenu);
+  closeMenu.addEventListener('click', closeMenuFn);
+  overlay.addEventListener('click', closeMenuFn);
+
+  // Tabs
+  document.querySelectorAll('.games__tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.games__tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Dynamic Links
+  fetch('links.json')
+    .then(res => res.json())
+    .then(links => {
+      const allLinks = document.querySelectorAll('a, .button, .button-one, .game-card__play, .download-one-menu');
+      allLinks.forEach(el => {
+        let text = el.textContent.trim().toLowerCase();
+        
+        if (text.includes('войти') && links.login) el.setAttribute('href', links.login);
+        else if (text.includes('регистрация') && links.register) el.setAttribute('href', links.register);
+        else if (text.includes('получить') && links.bonus) el.setAttribute('href', links.bonus);
+        else if (text.includes('играть') && links.play) {
+            if (el.tagName === 'A') el.setAttribute('href', links.play);
+            else el.onclick = () => window.location.href = links.play;
+        }
+        else if (text.includes('app store') && links.app_ios) el.onclick = () => window.location.href = links.app_ios;
+        else if (text.includes('android') && links.app_android) el.onclick = () => window.location.href = links.app_android;
+      });
+      
+      const tabs = document.querySelectorAll('.games__tab');
+      tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+              if (links.allGames) window.location.href = links.allGames;
+          });
+      });
+    })
+    .catch(e => console.error('Error loading links.json:', e));
+</script>
+
+</body>
+</html>

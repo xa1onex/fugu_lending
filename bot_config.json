@@ -1,0 +1,210 @@
+{
+    "projects": {
+        "beef": {
+            "name": "🥩 Beef Casino",
+            "links_file": "/var/www/beefplays/links.json",
+            "categories": [
+                {
+                    "name": "--- Основные ---",
+                    "buttons": [
+                        {
+                            "key": "login",
+                            "label": "Вход"
+                        },
+                        {
+                            "key": "register",
+                            "label": "Регистрация"
+                        },
+                        {
+                            "key": "play",
+                            "label": "Играть (все слоты)"
+                        },
+                        {
+                            "key": "bonus",
+                            "label": "Получить бонус"
+                        },
+                        {
+                            "key": "allGames",
+                            "label": "Все игры (Вкладки)"
+                        }
+                    ]
+                },
+                {
+                    "name": "--- Приложения ---",
+                    "buttons": [
+                        {
+                            "key": "app_ios",
+                            "label": "Скачать iOS (Футер/Меню)"
+                        },
+                        {
+                            "key": "app_android",
+                            "label": "Скачать Android (Футер/Меню)"
+                        }
+                    ]
+                }
+            ]
+        },
+        "eva": {
+            "name": "🌌 Eva Premium",
+            "links_file": "/var/www/evaplay/links.json",
+            "categories": [
+                {
+                    "name": "--- Основные ---",
+                    "buttons": [
+                        {
+                            "key": "login",
+                            "label": "Вход"
+                        },
+                        {
+                            "key": "register",
+                            "label": "Регистрация"
+                        },
+                        {
+                            "key": "bonus",
+                            "label": "Получить бонус / Пакет"
+                        },
+                        {
+                            "key": "play",
+                            "label": "Играть (карточки)"
+                        }
+                    ]
+                }
+            ]
+        },
+        "fugu": {
+            "name": "🐟 Fugu Casino",
+            "links_file": "/var/www/fuguplay/links.json",
+            "categories": [
+                {
+                    "name": "--- Главное меню ---",
+                    "buttons": [
+                        {
+                            "key": "main_login",
+                            "label": "Кнопка 'Вход' (Шапка)"
+                        },
+                        {
+                            "key": "main_register",
+                            "label": "Кнопка 'Регистрация' (Шапка)"
+                        },
+                        {
+                            "key": "hero_join",
+                            "label": "Кнопка 'Присоединиться' (Баннер)"
+                        }
+                    ]
+                },
+                {
+                    "name": "--- Игровые категории ---",
+                    "buttons": [
+                        {
+                            "key": "cat_slots",
+                            "label": "Категория: Слоты"
+                        },
+                        {
+                            "key": "cat_bonuses",
+                            "label": "Категория: Бонусы"
+                        },
+                        {
+                            "key": "cat_live",
+                            "label": "Категория: Лайв-Казино"
+                        },
+                        {
+                            "key": "cat_wheel",
+                            "label": "Категория: Колесо Фортуны"
+                        },
+                        {
+                            "key": "cat_exclusive",
+                            "label": "Категория: Эксклюзив"
+                        },
+                        {
+                            "key": "cat_vip",
+                            "label": "Категория: VIP"
+                        },
+                        {
+                            "key": "cat_support",
+                            "label": "Категория: Поддержка"
+                        },
+                        {
+                            "key": "cat_faq",
+                            "label": "Категория: FAQ"
+                        }
+                    ]
+                },
+                {
+                    "name": "--- Навигация (Табы) ---",
+                    "buttons": [
+                        {
+                            "key": "tab_lobby",
+                            "label": "Таб: Лобби"
+                        },
+                        {
+                            "key": "tab_slots",
+                            "label": "Таб: Слоты"
+                        },
+                        {
+                            "key": "tab_instant",
+                            "label": "Таб: Instant Games"
+                        },
+                        {
+                            "key": "tab_highroller",
+                            "label": "Таб: Для хайроллеров"
+                        },
+                        {
+                            "key": "tab_table",
+                            "label": "Таб: Настольные"
+                        },
+                        {
+                            "key": "tab_multiplier",
+                            "label": "Таб: Multiplier"
+                        },
+                        {
+                            "key": "tab_megaways",
+                            "label": "Таб: Megaways"
+                        },
+                        {
+                            "key": "tab_holdandwin",
+                            "label": "Таб: Hold And Win"
+                        },
+                        {
+                            "key": "tab_fugu_only",
+                            "label": "Таб: Только на FUGU"
+                        }
+                    ]
+                },
+                {
+                    "name": "--- Футер ---",
+                    "buttons": [
+                        {
+                            "key": "footer_terms",
+                            "label": "Футер: Правила и условия"
+                        },
+                        {
+                            "key": "footer_responsible",
+                            "label": "Футер: Ответственная игра"
+                        },
+                        {
+                            "key": "footer_privacy",
+                            "label": "Футер: Политика конфиденциальности"
+                        },
+                        {
+                            "key": "footer_affiliate",
+                            "label": "Футер: Партнёрская программа"
+                        },
+                        {
+                            "key": "footer_contact",
+                            "label": "Футер: Связаться с нами"
+                        }
+                    ]
+                },
+                {
+                    "name": "--- Приложение ---",
+                    "buttons": [
+                        {
+                            "key": "appBanner",
+                            "label": "Баннер: Скачать приложение"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

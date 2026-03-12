@@ -7,59 +7,159 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 TOKEN = "YOUR_BOT_TOKEN_HERE"
 
 # ID администратора (вставьте ваш ID из @getmyid_bot, чтобы другие не могли менять ссылки)
-# Если 0, то менять могут все (не рекомендуется для продакшена!)
 ADMIN_ID = 0 
 
 bot = telebot.TeleBot(TOKEN)
-LINKS_FILE = "links.json"
+CONFIG_FILE = "bot_config.json"
 
-def load_links():
-    if not os.path.exists(LINKS_FILE):
-        return {}
-    with open(LINKS_FILE, 'r', encoding='utf-8') as f:
+def load_config():
+    if not os.path.exists(CONFIG_FILE):
+        # Создаем базовый конфиг
+        default_config = {
+            "projects": {
+                "fugu": {
+                    "name": "🐟 Fugu Casino",
+                    "links_file": "links.json", # Путь до файла links.json первого лендинга
+                    "categories": [
+                        {
+                            "name": "--- Основные кнопки ---",
+                            "buttons": [
+                                {"key": "login", "label": "Вход"},
+                                {"key": "register", "label": "Регистрация"},
+                                {"key": "play", "label": "Играть (слоты)"},
+                                {"key": "bonus", "label": "Получить бонус"},
+                                {"key": "allGames", "label": "Все игры"},
+                                {"key": "appBanner", "label": "Скачать приложение"}
+                            ]
+                        },
+                        {
+                            "name": "--- Вкладки (Tabs) ---",
+                            "buttons": [
+                                {"key": "tab_Лобби", "label": "Лобби"},
+                                {"key": "tab_Слоты", "label": "Слоты"},
+                                {"key": "tab_Instant Games", "label": "Instant Games"},
+                                {"key": "tab_Для хайроллеров", "label": "Для хайроллеров"},
+                                {"key": "tab_Настольные", "label": "Настольные"},
+                                {"key": "tab_Multiplier", "label": "Multiplier"},
+                                {"key": "tab_Megaways", "label": "Megaways"},
+                                {"key": "tab_Hold And Win", "label": "Hold And Win"},
+                                {"key": "tab_Только на FUGU", "label": "Только на FUGU"}
+                            ]
+                        },
+                        {
+                            "name": "--- Подвал сайта (Footer) ---",
+                            "buttons": [
+                                {"key": "foot_Правила и условия", "label": "Правила и условия"},
+                                {"key": "foot_Ответственная игра", "label": "Ответственная игра"},
+                                {"key": "foot_Политика конфиденциальности", "label": "Политика конфиденциальности"},
+                                {"key": "foot_Партнёрская программа", "label": "Партнёрская программа"},
+                                {"key": "foot_Связаться с нами", "label": "Связаться с нами"}
+                            ]
+                        }
+                    ]
+                },
+                "example_landing": {
+                    "name": "🔥 Другой лендинг",
+                    "links_file": "/Users/macbookair/Documents/RiderProjects/example_landing/links.json",
+                    "categories": [
+                        {
+                            "name": "--- Главные ---",
+                            "buttons": [
+                                {"key": "main_btn", "label": "Главная кнопка"},
+                                {"key": "support", "label": "Поддержка"}
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+        with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
+            json.dump(default_config, f, ensure_ascii=False, indent=4)
+        return default_config
+        
+    with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def save_links(data):
-    with open(LINKS_FILE, 'w', encoding='utf-8') as f:
+def load_links(filepath):
+    if not os.path.exists(filepath):
+        return {}
+    with open(filepath, 'r', encoding='utf-8') as f:
+        try:
+            return json.load(f)
+        except Exception:
+            return {}
+
+def save_links(filepath, data):
+    # Создаем папку, если она не существует
+    os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
+    with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+# Состояния: { chat_id: {'project': 'fugu', 'key': 'login'} }
 user_states = {}
 
 @bot.message_handler(commands=['start', 'admin'])
 def send_welcome(message):
     if ADMIN_ID != 0 and message.from_user.id != ADMIN_ID:
-        bot.reply_to(message, "У вас нет прав доступа к админ панели.")
+        bot.reply_to(message, "У вас нет прав доступа.")
         return
         
-    show_admin_panel(message.chat.id)
+    config = load_config()
+    projects = config.get("projects", {})
+    
+    if not projects:
+        bot.send_message(message.chat.id, "Нет настроенных проектов в bot_config.json")
+        return
+        
+    markup = InlineKeyboardMarkup(row_width=1)
+    for p_id, p_data in projects.items():
+        markup.add(InlineKeyboardButton(p_data["name"], callback_data=f"proj_{p_id}"))
+        
+    bot.send_message(message.chat.id, "👋 <b>Главное меню</b>\n\nВыберите лендинг, ссылки которого хотите редактировать:", reply_markup=markup, parse_mode="HTML")
 
-def show_admin_panel(chat_id):
-    links = load_links()
+@bot.callback_query_handler(func=lambda call: call.data.startswith('proj_'))
+def handle_project_select(call):
+    if ADMIN_ID != 0 and call.from_user.id != ADMIN_ID:
+        bot.answer_callback_query(call.id, "Нет доступа")
+        return
+        
+    project_id = call.data.replace('proj_', '')
+    show_project_menu(call.message.chat.id, project_id)
+
+def show_project_menu(chat_id, project_id):
+    config = load_config()
+    project = config["projects"].get(project_id)
+    if not project:
+        bot.send_message(chat_id, "Проект не найден.")
+        return
+        
+    links_file = project.get("links_file", "links.json")
+    links = load_links(links_file)
     
     markup = InlineKeyboardMarkup(row_width=1)
     
-    # Группы кнопок
-    markup.add(InlineKeyboardButton("--- Основные кнопки ---", callback_data="ignore"))
-    markup.add(
-        InlineKeyboardButton(f"Вход {'✅' if links.get('login') else '❌'}", callback_data="edit_login"),
-        InlineKeyboardButton(f"Регистрация {'✅' if links.get('register') else '❌'}", callback_data="edit_register"),
-        InlineKeyboardButton(f"Играть (слоты) {'✅' if links.get('play') else '❌'}", callback_data="edit_play"),
-        InlineKeyboardButton(f"Получить бонус {'✅' if links.get('bonus') else '❌'}", callback_data="edit_bonus"),
-        InlineKeyboardButton(f"Все игры {'✅' if links.get('allGames') else '❌'}", callback_data="edit_allGames"),
-        InlineKeyboardButton(f"Скачать приложение {'✅' if links.get('appBanner') else '❌'}", callback_data="edit_appBanner")
-    )
-    
-    markup.add(InlineKeyboardButton("--- Вкладки (Tabs) ---", callback_data="ignore"))
-    for tab in ["Лобби", "Слоты", "Instant Games", "Для хайроллеров", "Настольные", "Multiplier", "Megaways", "Hold And Win", "Только на FUGU"]:
-        key = f"tab_{tab}"
-        markup.add(InlineKeyboardButton(f"{tab} {'✅' if links.get(key) else '❌'}", callback_data=f"edit_{key}"))
+    for category in project.get("categories", []):
+        markup.add(InlineKeyboardButton(category["name"], callback_data="ignore"))
         
-    markup.add(InlineKeyboardButton("--- Подвал сайта (Footer) ---", callback_data="ignore"))
-    for foot in ["Правила и условия", "Ответственная игра", "Политика конфиденциальности", "Партнёрская программа", "Связаться с нами"]:
-        key = f"foot_{foot}"
-        markup.add(InlineKeyboardButton(f"{foot} {'✅' if links.get(key) else '❌'}", callback_data=f"edit_{key}"))
+        btn_row = []
+        for btn in category.get("buttons", []):
+            key = btn["key"]
+            label = btn["label"]
+            status = '✅' if links.get(key) else '❌'
+            # передаем данные в формате: edit_PROJID_KEY
+            callback = f"edit_{project_id}_{key}"
+            markup.add(InlineKeyboardButton(f"{label} {status}", callback_data=callback))
+            
+    markup.add(InlineKeyboardButton("⬅️ Назад к выбору лендинга", callback_data="back_to_main"))
+    
+    bot.send_message(chat_id, f"🔧 Настройка: <b>{project['name']}</b>\n(✅ - ссылка задана, ❌ - пусто)\n\nВыберите кнопку:", reply_markup=markup, parse_mode="HTML")
 
-    bot.send_message(chat_id, "🔧 <b>Админ-панель управления ссылками</b>\n\nВыберите кнопку, ссылку для которой вы хотите изменить.\n(✅ - ссылка задана, ❌ - пусто, ссылка ведет на заглушку #)", reply_markup=markup, parse_mode="HTML")
+@bot.callback_query_handler(func=lambda call: call.data == 'back_to_main')
+def back_to_main(call):
+    if ADMIN_ID != 0 and call.from_user.id != ADMIN_ID:
+        return
+    bot.delete_message(call.message.chat.id, call.message.message_id)
+    send_welcome(call.message)
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('edit_'))
 def handle_edit(call):
@@ -67,37 +167,49 @@ def handle_edit(call):
         bot.answer_callback_query(call.id, "Нет доступа")
         return
         
-    key = call.data.replace('edit_', '')
-    links = load_links()
+    # Парсим edit_PROJID_KEY
+    data_parts = call.data.split('_', 2)
+    project_id = data_parts[1]
+    key = data_parts[2]
+    
+    config = load_config()
+    project = config["projects"].get(project_id)
+    
+    links = load_links(project["links_file"])
     current_link = links.get(key, "Не задана")
     
-    msg = bot.send_message(call.message.chat.id, f"Вы выбрали: <b>{key}</b>\nТекущая ссылка: {current_link}\n\nОтправьте новую ссылку в чат (начинающуюся с http:// или https://). Отправьте /cancel для отмены.", parse_mode="HTML")
+    bot.send_message(call.message.chat.id, f"Проект: <b>{project['name']}</b>\nКнопка: <b>{key}</b>\nТекущая ссылка: {current_link}\n\nОтправьте новую ссылку (начинающуюся с http). Отправьте /cancel для отмены.", parse_mode="HTML")
     
-    user_states[call.message.chat.id] = key
+    user_states[call.message.chat.id] = {'project': project_id, 'key': key}
 
 @bot.message_handler(func=lambda message: message.chat.id in user_states)
 def process_new_link(message):
     chat_id = message.chat.id
+    state = user_states[chat_id]
+    project_id = state['project']
+    key = state['key']
     
     if message.text == '/cancel':
         del user_states[chat_id]
         bot.send_message(chat_id, "Действие отменено.")
-        show_admin_panel(chat_id)
+        show_project_menu(chat_id, project_id)
         return
         
     if not message.text.startswith('http'):
-        bot.send_message(chat_id, "Ошибка! Ссылка должна начинаться с http:// или https://. Попробуйте снова или отправьте /cancel")
+        bot.send_message(chat_id, "Ошибка! Ссылка должна начинаться с http:// или https://. Отправьте ссылку еще раз или /cancel")
         return
         
-    key = user_states[chat_id]
-    links = load_links()
+    config = load_config()
+    project = config["projects"].get(project_id)
+    
+    links = load_links(project["links_file"])
     links[key] = message.text
-    save_links(links)
+    save_links(project["links_file"], links)
     
     del user_states[chat_id]
     
-    bot.send_message(chat_id, f"✅ Ссылка для <b>{key}</b> успешно обновлена на {message.text}!\n\nИзменения сразу же отобразятся на лендинге при обновлении страницы.", parse_mode="HTML")
-    show_admin_panel(chat_id)
+    bot.send_message(chat_id, f"✅ Ссылка сохранена!\n\nПроект: <b>{project['name']}</b>\nНовая ссылка: {message.text}", parse_mode="HTML")
+    show_project_menu(chat_id, project_id)
 
-print("Бот запущен! Жду сообщений...")
+print("Универсальный бот-админка запущен! Жду сообщений...")
 bot.infinity_polling()
