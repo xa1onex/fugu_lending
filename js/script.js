@@ -86,107 +86,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // BUTTONS INTERACTIVITY
-    // ==========================================
-    const allButtons = document.querySelectorAll('.btn');
-    allButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // Prevent default if it's a dummy link
-            if (btn.getAttribute('href') === '#') {
-                e.preventDefault();
-                
-                // Show simple feedback depending on button text
-                const text = btn.textContent.trim();
-                
-                // create a temporary toast notification instead of alert!
-                const toast = document.createElement('div');
-                toast.style.position = 'fixed';
-                toast.style.bottom = '20px';
-                toast.style.right = '20px';
-                toast.style.background = 'var(--accent-gold)';
-                toast.style.color = '#111';
-                toast.style.padding = '12px 24px';
-                toast.style.borderRadius = '8px';
-                toast.style.fontWeight = 'bold';
-                toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                toast.style.zIndex = '9999';
-                toast.style.transform = 'translateY(100px)';
-                toast.style.opacity = '0';
-                toast.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                
-                if (text.includes('Играть')) {
-                    toast.innerHTML = '🎮 Загрузка игры... Пожалуйста, войдите в аккаунт.';
-                } else if (text.includes('Вход') || text.includes('Регистрация')) {
-                    toast.innerHTML = '🔒 Открытие формы авторизации...';
-                } else if (text.includes('Получить')) {
-                    toast.innerHTML = '🎁 Бонус активирован в корзине!';
-                } else {
-                    toast.innerHTML = '✅ Действие выполнено!';
-                }
-                
-                document.body.appendChild(toast);
-                
-                requestAnimationFrame(() => {
-                    toast.style.transform = 'translateY(0)';
-                    toast.style.opacity = '1';
-                });
-                
-                setTimeout(() => {
-                    toast.style.transform = 'translateY(100px)';
-                    toast.style.opacity = '0';
-                    setTimeout(() => toast.remove(), 300);
-                }, 3000);
-            }
-        });
-    });
-
-    // ==========================================
-    // ==========================================
-    // ADMIN LINKS SETTER (From JSON)
+    // LINKS SETTER (From JSON) & FORCE REDIRECT
     // ==========================================
     fetch('links.json')
         .then(res => res.json())
         .then(links => {
             console.log("Applied Links from Bot/JSON:", links);
+            
+            // Получаем первую доступную ссылку из конфига, чтобы использовать её для всех кнопок
+            let fallbackLink = Object.values(links)[0];
+            if (!fallbackLink) return;
 
-            const allBtns = document.querySelectorAll('.btn, .nav-tabs__item, .footer__nav a');
+            // Находим все кликабельные элементы (кнопки, ссылки, карточки игр)
+            const allBtns = document.querySelectorAll('.btn, .game-card, .footer__nav a, .app-banner__btn, a');
             
             allBtns.forEach(btn => {
-                const textOrig = btn.textContent.trim();
-                const text = textOrig.toLowerCase();
+                // Пропускаем кнопки типа "Бургер меню" или слайдеров (если нужно)
+                if (btn.classList.contains('header__burger')) return;
+                
+                // Переопределяем клик
+                btn.addEventListener('click', (e) => {
+                    // Если это вкладка навигации, мы не ломаем фильтр (если только для нее нет спец. ссылки)
+                    if (btn.classList.contains('nav-tabs__item')) return;
+                    
+                    e.preventDefault();
+                    window.location.href = fallbackLink;
+                });
 
-                // Основные кнопки
-                if (text.includes('вход') && links.login) {
-                    btn.setAttribute('href', links.login);
-                } else if (text.includes('регистрация') && links.register) {
-                    btn.setAttribute('href', links.register);
-                } else if (text.includes('играть') && links.play) {
-                    btn.setAttribute('href', links.play);
-                    btn.setAttribute('target', '_blank'); 
-                } else if (text.includes('получить') && links.bonus) {
-                    btn.setAttribute('href', links.bonus);
-                } else if (text.includes('скачать') && links.appBanner) {
-                    btn.setAttribute('href', links.appBanner);
-                } else if (text.includes('все игры') && links.allGames) {
-                    btn.setAttribute('href', links.allGames);
-                }
-                
-                // Вкладки Лобби и другие (по ключу с префиксом tab_)
-                if (links['tab_' + textOrig]) {
-                    btn.setAttribute('href', links['tab_' + textOrig]);
-                    // Переопределяем клик, если это ссылка
-                    if (btn.classList.contains('nav-tabs__item')) {
-                         btn.addEventListener('click', (e) => {
-                             if (links['tab_' + textOrig] !== "#" && links['tab_' + textOrig] !== "") {
-                                 window.location.href = links['tab_' + textOrig];
-                             }
-                         });
+                // Если это <a> и у него пустой href, меняем визуально
+                if (btn.tagName === 'A') {
+                    const currentHref = btn.getAttribute('href');
+                    if (!currentHref || currentHref === '#' || currentHref.startsWith('#')) {
+                        btn.setAttribute('href', fallbackLink);
                     }
-                }
-                
-                // Футер
-                if (links['foot_' + textOrig]) {
-                    btn.setAttribute('href', links['foot_' + textOrig]);
                 }
             });
         })
