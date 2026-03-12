@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // LINKS SETTER (From JSON) & FORCE REDIRECT
     // ==========================================
-    fetch('links.json')
+    fetch('links.json?nocache=' + new Date().getTime())
         .then(res => res.json())
         .then(links => {
             console.log("Applied Links from Bot/JSON:", links);
