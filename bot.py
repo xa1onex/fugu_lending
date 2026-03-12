@@ -101,7 +101,9 @@ user_states = {}
 @bot.message_handler(commands=['start', 'admin'])
 def send_welcome(message):
     if ADMIN_ID != 0 and message.from_user.id != ADMIN_ID:
-        bot.reply_to(message, "У вас нет прав доступа.")
+        markup = InlineKeyboardMarkup()
+        markup.add(InlineKeyboardButton("🎰 ИГРАТЬ", url="https://lb777.xyz/66Ytuv"))
+        bot.reply_to(message, "Добро пожаловать в казино! Нажмите кнопку ниже, чтобы начать игру:", reply_markup=markup)
         return
         
     config = load_config()
@@ -150,9 +152,24 @@ def show_project_menu(chat_id, project_id):
             callback = f"edit_{project_id}_{key}"
             markup.add(InlineKeyboardButton(f"{label} {status}", callback_data=callback))
             
+    markup.add(InlineKeyboardButton("🔄 Установить ОДНУ ссылку на ВСЕ кнопки", callback_data=f"setall_{project_id}"))
     markup.add(InlineKeyboardButton("⬅️ Назад к выбору лендинга", callback_data="back_to_main"))
     
     bot.send_message(chat_id, f"🔧 Настройка: <b>{project['name']}</b>\n(✅ - ссылка задана, ❌ - пусто)\n\nВыберите кнопку:", reply_markup=markup, parse_mode="HTML")
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith('setall_'))
+def handle_setall(call):
+    if ADMIN_ID != 0 and call.from_user.id != ADMIN_ID:
+        bot.answer_callback_query(call.id, "Нет доступа")
+        return
+        
+    project_id = call.data.replace('setall_', '')
+    config = load_config()
+    project = config["projects"].get(project_id)
+    
+    bot.send_message(call.message.chat.id, f"Проект: <b>{project['name']}</b>\n\nОтправьте ссылку (начиная с http), которая будет установлена на <b>ВСЕ</b> кнопки этого лендинга. /cancel для отмены.", parse_mode="HTML")
+    
+    user_states[call.message.chat.id] = {'project': project_id, 'key': 'ALL_BUTTONS'}
 
 @bot.callback_query_handler(func=lambda call: call.data == 'back_to_main')
 def back_to_main(call):
@@ -203,12 +220,22 @@ def process_new_link(message):
     project = config["projects"].get(project_id)
     
     links = load_links(project["links_file"])
-    links[key] = message.text
+    
+    if key == 'ALL_BUTTONS':
+        count = 0
+        for category in project.get("categories", []):
+            for btn in category.get("buttons", []):
+                links[btn["key"]] = message.text
+                count += 1
+        bot.send_message(chat_id, f"✅ Единая ссылка сохранена для <b>ВСЕХ</b> ({count}) кнопок проекта <b>{project['name']}</b>!\nНовая ссылка: {message.text}", parse_mode="HTML")
+    else:
+        links[key] = message.text
+        bot.send_message(chat_id, f"✅ Ссылка сохранена!\n\nПроект: <b>{project['name']}</b>\nКнопка: <b>{key}</b>\nНовая ссылка: {message.text}", parse_mode="HTML")
+        
     save_links(project["links_file"], links)
     
     del user_states[chat_id]
     
-    bot.send_message(chat_id, f"✅ Ссылка сохранена!\n\nПроект: <b>{project['name']}</b>\nНовая ссылка: {message.text}", parse_mode="HTML")
     show_project_menu(chat_id, project_id)
 
 print("Универсальный бот-админка запущен! Жду сообщений...")
